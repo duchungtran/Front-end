@@ -30,12 +30,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -44,8 +42,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
@@ -90,7 +87,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["/assets/js/vendor/modernizr-3.5.0.min.js", "/assets/js/vendor/jquery-1.12.4.min.js", "/assets/js/popper.min.js", "/assets/js/bootstrap.min.js", "/assets/js/jquery.slicknav.min.js", "/assets/js/owl.carousel.min.js", "/assets/js/slick.min.js", "/assets/js/wow.min.js", "/assets/js/animated.headline.js", "/assets/js/jquery.magnific-popup.js", "/assets/js/jquery.scrollUp.min.js", "/assets/js/jquery.nice-select.min.js", "/assets/js/jquery.sticky.js", "/assets/js/plugins.js", "/assets/js/main.js"]
           }
         },
         "lint": {
@@ -119,6 +116,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "my-shop"
+    }
+  },
+  "defaultProject": "my-shop",
+  "cli": {
+    "analytics": false
+  }
 }

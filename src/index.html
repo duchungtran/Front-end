@@ -1,13 +1,156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>MyShop</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>eCommerce HTML-5 Template</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico" />
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/flaticon.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/slicknav.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animate.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/magnific-popup.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/themify-icons.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/slick.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/smoothproducts.css" type="text/css" />
 </head>
+
 <body>
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="assets/img/logo/logo.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
   <app-root></app-root>
+
+  <!--
+  JavaScripts
+  ========================== -->
+
+  <!-- All JS Custom Plugins Link Here here -->
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+  <script src="/assets/js/smoothproducts.min.js"></script>
+  <!-- Jquery, Popper, Bootstrap -->
+  <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+  <script src="/assets/js/popper.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- Jquery Mobile Menu -->
+  <script src="/assets/js/jquery.slicknav.min.js"></script>
+
+  <!-- Jquery Slick , Owl-Carousel Plugins -->
+  <script src="/assets/js/owl.carousel.min.js"></script>
+  <script src="/assets/js/slick.min.js"></script>
+
+  <!-- One Page, Animated-HeadLin -->
+  <script src="/assets/js/wow.min.js"></script>
+  <script src="/assets/js/animated.headline.js"></script>
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+
+  <!-- Scrollup, nice-select, sticky -->
+  <script src="/assets/js/jquery.scrollUp.min.js"></script>
+  <script src="/assets/js/jquery.nice-select.min.js"></script>
+  <script src="/assets/js/jquery.sticky.js"></script>
+
+  <!-- contact js -->
+  <script src="/assets/js/contact.js"></script>
+  <script src="/assets/js/jquery.form.js"></script>
+  <script src="/assets/js/jquery.validate.min.js"></script>
+  <script src="/assets/js/mail-script.js"></script>
+  <script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+
+  <!-- Jquery Plugins, main Jquery -->
+  <script src="/assets/js/plugins.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/jquery-3.3.1.min.js"></script>
+  <script src="/assets/js/jquery.cycle.js"></script>
+  <script src="/assets/js/owl.carousel.min.js"></script>
+  <script src="/assets/js/smoothproducts.min.js"></script>
+  <script>
+    $("#sliderShuffle").cycle({
+      next: "#next",
+      prev: "#prev",
+    });
+
+    $(".owl-carousel").owlCarousel({
+      items: 4,
+      loop: true,
+      margin: 15,
+      autoplay: true,
+      autoplayTimeout: 3000, //3 Second
+      nav: true,
+      responsiveClass: true,
+      responsive: {
+        0: {
+          items: 1,
+          nav: true,
+        },
+        600: {
+          items: 3,
+          nav: true,
+        },
+        1000: {
+          items: 4,
+          nav: true,
+        },
+      },
+    });
+
+    $(function () {
+      $(".topbar ul li").click(function () {
+        $(".topbar ul li").not(this).find("ul").slideUp();
+        $(this).find("ul").slideToggle();
+      });
+      $(".topbar ul li ul li, productCategories ul li .megamenu").click(
+        function (e) {
+          e.stopPropagation();
+        }
+      );
+      $(".productCategories ul li").click(function () {
+        $(".productCategories ul li").not(this).find(".megamenu").hide();
+        $(this).find(".megamenu").toggle();
+      });
+      $(".otherInfoBody").hide();
+      $(".otherInfoHandle").click(function () {
+        $(".otherInfoBody").slideToggle();
+      });
+      $(".signBtn").click(function () {
+        $("body").css("overflow", "hidden");
+        $(".loginBox").slideDown();
+      });
+      $(".closeBtn").click(function () {
+        $("body").css("overflow", "visible");
+        $(".loginBox").slideUp();
+      });
+      $(".productViewBtn").click(function (e) {
+        e.preventDefault();
+        $("body").css("overflow", "hidden");
+        $(".productViewBox").slideDown();
+      });
+      $(".productViewBox-closeBtn").click(function () {
+        $("body").css("overflow", "visible");
+        $(".productViewBox").slideUp();
+      });
+
+      $(".sp-wrap").smoothproducts();
+    });
+
+  </script>
 </body>
+
 </html>

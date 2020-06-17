@@ -1,0 +1,72 @@
+<!-- slider Area End-->
+
+<!--================login_part Area =================-->
+<section class="login_part section_padding">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-6">
+        <div class="login_part_text text-center">
+          <div class="login_part_text_iner">
+            <h2>Bạn chưa có tài khoản?</h2>
+            <a routerLinkActive="active" [routerLink]="['/register']" href="#" class="btn_3">Tạo tài khoản</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="login_part_form">
+          <div class="login_part_form_iner">
+            <h3>ĐĂNG NHẬP</h3>
+            <form [formGroup]="userForm" class="row contact_form" action="#" method="post" novalidate="novalidate"
+              #formDir="ngForm">
+              <div class="col-md-12 form-group p_star">
+                <input formControlName="username" required minlength="4" maxlength="20" form type="text"
+                  class="form-control" name="tendangnhap" placeholder="Tên đăng nhập" />
+                <div *ngIf="
+                    username.invalid && (username.dirty || username.touched)
+                  " class="alert alert-danger">
+                  <div *ngIf="username.errors.required">
+                    Tên đăng nhập không được bỏ trống
+                  </div>
+                  <div *ngIf="username.errors.minlength">
+                    Tên đăng nhập phải có độ dài lớn hơn 6
+                  </div>
+                  <div *ngIf="username.errors.maxlength">
+                    Tên đăng nhập không được vượt quá 20 ký tự
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input formControlName="password" type="password" class="form-control" id="password" name="password"
+                  placeholder="Mật khẩu" />
+                <div *ngIf="
+                    password.invalid && (password.dirty || password.touched)
+                  " class="alert alert-danger">
+                  <div *ngIf="password.errors.required">
+                    Mật khẩu không được bỏ trống
+                  </div>
+                  <div *ngIf="password.errors.minlength">
+                    Mật khẩu phải có độ dài lớn hơn 6
+                  </div>
+                  <div *ngIf="password.errors.maxlength">
+                    Mật khẩu không được vượt quá 20 ký tự
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="creat_account d-flex align-items-center">
+                  <input type="checkbox" id="f-option" name="selector" />
+                  <label for="f-option">Remember me</label>
+                </div>
+                <button (click)="onSignIn()" type="submit" value="submit" class="btn_3">
+                  log in
+                </button>
+                <a class="lost_pass" href="#">forget password?</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================login_part end =================-->

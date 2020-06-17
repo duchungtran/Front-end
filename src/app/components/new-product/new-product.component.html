@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="card">
+    <h5 class="card-header">Tạo mới sản phẩm</h5>
+    <div class="card-body">
+      <form [formGroup]="productForm">
+        <div class="form-group">
+          <label for="tensanpham">Tên sản phẩm</label>
+          <input formControlName="name" type="text" class="form-control" id="tensanpham" aria-describedby="emailHelp"
+            placeholder="Nhập tên sản phẩm" />
+          <div *ngIf="
+                    name.invalid && (name.dirty || name.touched)
+                  " class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+              Tên sản phẩm không được bỏ trống
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price">Giá</label>
+          <input formControlName="price" type="number" class="form-control" id="price"
+            placeholder="Nhập giá sản phẩm" />
+          <div *ngIf="
+                    price.invalid && (price.dirty || price.touched)
+                  " class="alert alert-danger">
+            <div *ngIf="price.errors.required">
+              Giá sản phẩm không được bỏ trống
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="brand">Nhà sản xuất</label>
+          <select formControlName="brand" class="form-control" id="brand">
+            <option value="" disabled selected hidden>Chọn nhà sản xuất</option>
+            <option>Vans</option>
+            <option>Converse</option>
+            <option>Nike</option>
+          </select>
+          <div *ngIf="
+          brand.invalid && (brand.dirty || brand.touched)
+                  " class="alert alert-danger">
+            <div *ngIf="brand.errors.required">
+              Nhà sản xuất không được bỏ trống
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="soluong">Số lượng</label>
+          <input formControlName="soLuong" type="text" class="form-control" id="soluong" placeholder="Nhập số lượng" />
+          <div *ngIf="
+          soLuong.invalid && (soLuong.dirty || soLuong.touched)
+                  " class="alert alert-danger">
+            <div *ngIf="soLuong.errors.required">
+              Số lượng không được bỏ trống
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="productImage">Ảnh sản phẩm</label>
+          <input formControlName="productImage" type="file" class="form-control-file" id="productImage" multiple />
+          <div *ngIf="
+          productImage.invalid && (productImage.dirty || productImage.touched)
+                  " class="alert alert-danger">
+            <div *ngIf="productImage.errors.required">
+              Ảnh sản phẩm không được bỏ trống
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mota">Mô tả</label>
+          <input formControlName="moTa" type="text" class="form-control" id="mota" placeholder="Nhập mô tả" />
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="createProduct()">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
