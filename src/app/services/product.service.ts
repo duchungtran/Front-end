@@ -49,4 +49,28 @@ export class ProductService {
         .catch((err) => console.log(err));
     });
   }
+
+  createProduct(product: any): Promise<boolean> {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('price', product.price);
+    formData.append('brand', product.brand);
+    formData.append('soluong', product.soluong);
+    formData.append('productImage', product.productImage[2]);
+    formData.append('productImage', product.productImage[1]);
+    formData.append('productImage', product.productImage[0]);
+    formData.append('mota', product.mota);
+
+    return new Promise((resolve, rejects) => {
+      this.http.post(this.url, formData).subscribe(
+        (res) => {
+          resolve(true);
+          this.router.navigateByUrl('/newproduct');
+        },
+        (err) => {
+          rejects(err);
+        }
+      );
+    });
+  }
 }

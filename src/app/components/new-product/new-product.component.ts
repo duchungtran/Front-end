@@ -8,6 +8,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class NewProductComponent implements OnInit {
   public product: {};
+  public newProduct: {
+    name: any;
+    price: any;
+    brand: any;
+    soluong: any;
+    productImage: any;
+    mota: any;
+  };
+  public image = [];
   productForm: FormGroup;
   constructor(private productService: ProductService) {}
 
@@ -23,9 +32,36 @@ export class NewProductComponent implements OnInit {
   }
 
   createProduct() {
-    console.log(this.productForm.get('productImage').value);
+    if (
+      !this.productForm.hasError('required', [
+        'name',
+        'price',
+        'brand',
+        'soLuong',
+        'productImage',
+        'moTa',
+      ])
+    ) {
+      var priceFrom = this.productForm.get('price').value;
+      priceFrom = Number(priceFrom).toLocaleString('number');
+      console.log(priceFrom);
+      this.newProduct = {
+        name: this.productForm.get('name').value,
+        price: priceFrom,
+        brand: this.productForm.get('brand').value,
+        soluong: this.productForm.get('soLuong').value,
+        productImage: this.image,
+        mota: this.productForm.get('moTa').value,
+      };
+      console.log(this.newProduct.productImage);
+      this.productService.createProduct(this.newProduct);
+    }
   }
-
+  onSelectFile(event) {
+    if (event.target.files.length > 0) {
+      this.image = event.target.files;
+    }
+  }
   get name() {
     return this.productForm.get('name');
   }
