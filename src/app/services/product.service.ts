@@ -73,4 +73,31 @@ export class ProductService {
       );
     });
   }
+  updateProduct(id: any, product: any): Promise<boolean> {
+    console.log(id);
+    return new Promise((resolve, rejects) => {
+      this.http.put(this.url + '/' + id, product).subscribe(
+        (res) => {
+          resolve(true);
+          this.router.navigateByUrl('/productmanage');
+        },
+        (err) => {
+          rejects(err);
+        }
+      );
+    });
+  }
+  deleteProduct(id: any): Promise<boolean> {
+    return new Promise((resolve, rejects) => {
+      this.http.delete(this.url + '/' + id).subscribe(
+        (res) => {
+          resolve(true);
+          this.router.navigateByUrl('/productmanage');
+        },
+        (err) => {
+          rejects(err);
+        }
+      );
+    });
+  }
 }

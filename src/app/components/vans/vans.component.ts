@@ -29,7 +29,6 @@ export class VansComponent implements OnInit {
   async getAll() {
     await this.productService.getDMProduct(0, 0, this.filter).then((data) => {
       this.productLength = data;
-      console.log(this.productLength);
     });
     this.productLength = Object.keys(this.productLength).length;
   }

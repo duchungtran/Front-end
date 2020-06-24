@@ -17,6 +17,10 @@ import { NikeComponent } from './components/nike/nike.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SinglePageProductComponent } from './components/single-page-product/single-page-product.component';
 import { NewProductComponent } from './components/new-product/new-product.component';
+import { ProductManageComponent } from './components/product-manage/product-manage.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +34,8 @@ import { NewProductComponent } from './components/new-product/new-product.compon
     NikeComponent,
     SinglePageProductComponent,
     NewProductComponent,
+    ProductManageComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +44,8 @@ import { NewProductComponent } from './components/new-product/new-product.compon
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

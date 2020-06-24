@@ -44,7 +44,7 @@ export class NewProductComponent implements OnInit {
     ) {
       var priceFrom = this.productForm.get('price').value;
       priceFrom = Number(priceFrom).toLocaleString('number');
-      console.log(priceFrom);
+      //console.log(priceFrom);
       this.newProduct = {
         name: this.productForm.get('name').value,
         price: priceFrom,
@@ -53,7 +53,7 @@ export class NewProductComponent implements OnInit {
         productImage: this.image,
         mota: this.productForm.get('moTa').value,
       };
-      console.log(this.newProduct.productImage);
+      console.log(this.newProduct);
       this.productService.createProduct(this.newProduct);
     }
   }

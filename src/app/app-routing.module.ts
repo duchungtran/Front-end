@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../app/components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -8,7 +8,8 @@ import { ConverseComponent } from './components/converse/converse.component';
 import { NikeComponent } from './components/nike/nike.component';
 import { SinglePageProductComponent } from './components/single-page-product/single-page-product.component';
 import { NewProductComponent } from './components/new-product/new-product.component';
-import { combineLatest } from 'rxjs';
+import { ProductManageComponent } from './components/product-manage/product-manage.component';
+import { CartComponent } from './components/cart/cart.component';
 const routes: Routes = [
   {
     path: '',
@@ -37,6 +38,14 @@ const routes: Routes = [
   {
     path: 'newproduct',
     component: NewProductComponent,
+  },
+  {
+    path: 'productmanage',
+    component: ProductManageComponent,
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
   },
   {
     path: ':id',

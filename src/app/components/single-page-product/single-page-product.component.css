@@ -100,11 +100,3 @@
   width: 50%;
   float: left;
 }
-
-.product-detail .sp-wrap {
-  max-width: 100%;
-}
-
-.product-detail-left img {
-  max-width: inherit;
-}

@@ -37,7 +37,7 @@
       <h5><b>Giá: </b> <i class="fas fa-dollar-sign"></i> {{product.price}}</h5>
       <h5><b>Nhãn hiệu: </b> {{product.brand}}</h5>
       <h5><b>Availability : </b> in Stock</h5>
-      <a href="#" class="addtocart"><i class="fas fa-heart"></i> Add to Cart</a>
+      <a (click)="addToCart()" href="#" class="addtocart"><i class="fas fa-heart"></i> Add to Cart</a>
       <a href="#" class="writereview"><i class="fas fa-pen"></i> Write a review</a>
       <a href="#" class="buynow"><i class="fas fa-shopping-cart"></i> Buy Now</a>
     </div>

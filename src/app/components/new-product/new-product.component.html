@@ -27,9 +27,9 @@
           <label for="brand">Nhà sản xuất</label>
           <select formControlName="brand" class="form-control" id="brand">
             <option value="" disabled selected hidden>Chọn nhà sản xuất</option>
-            <option>Vans</option>
-            <option>Converse</option>
-            <option>Nike</option>
+            <option value="vans">Vans</option>
+            <option value="converse">Converse</option>
+            <option value="nike">Nike</option>
           </select>
           <div *ngIf="brand.invalid && (brand.dirty || brand.touched)" class="alert alert-danger">
             <div *ngIf="brand.errors.required">
