@@ -1,0 +1,140 @@
+<div class="container">
+  <div style="width: 1500px; text-align: center; margin-left: -175px;" class="card">
+    <h5 class="card-header">Danh sách đơn hàng</h5>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">ID
+              <div class="btn-group">
+                <button style="border: none;" type="button" class="btn btn-outline-secondary dropdown-toggle-split"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="btn-inner--icon"><i class="fa fa-filter" style="font-size: 10px;"></i></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left px-3" style="width: 300px;"
+                  (click)="$event.stopPropagation()">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group" style="margin-bottom: 0 !important;">
+                          <div class="input-group">
+                            <input [(ngModel)]="idFilter" class="form-control" placeholder="Tìm kiếm ID" type="text"
+                              style="height: 30px;" name="name" autofocus />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right col-md-12 mt-2">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="dropdown"
+                          (click)="filterOrder()">
+                          Lọc
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </th>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">SĐT</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orders| paginate
+          : {
+              itemsPerPage: pageSize,
+              currentPage: pageIndex,
+              totalItems: orderLength
+            };; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ item.id }}</td>
+            <td>{{ item.order.customer.hoten }}</td>
+            <td>{{ item.order.customer.diachi }}</td>
+            <td>{{ item.order.customer.sodienthoai }}</td>
+            <td>
+              <button (click)="currentOrder = item; getProduct()" style="margin-right: 10px;" type="button"
+                class="btn btn-success" data-toggle="modal" data-target="#viewModal">
+                Chi tiết
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageIndex = $event; getPageEvent()"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentOrder" class="modal" tabindex="-1" role="dialog" id="viewModal">
+  <div class="modal-dialog modal-xl" style="width: 90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section class="cart_area section_padding" style="padding: 20px 0px;">
+          <div class="container">
+            <div class="cart_inner">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sản phẩm</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="product">
+                    <tr *ngFor="let item of product; let i = index">
+                      <td>
+                        <div class="media">
+                          <div class="d-flex">
+                            <img src="http://localhost:3000/{{
+                                item.productImage[0]
+                              }}" alt="" />
+                          </div>
+                          <div class="media-body">
+                            <p>{{ item.name }}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <h5>{{ item.price }}₫</h5>
+                      </td>
+                      <td>
+                        <h5>{{ currentOrder.soluong[i] }}</h5>
+                      </td>
+                      <td>{{ total[i] }}₫</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <h5>Tổng tiền</h5>
+                      </td>
+                      <td>{{ subTotal }}₫</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">
+            Hoàn thành
+          </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

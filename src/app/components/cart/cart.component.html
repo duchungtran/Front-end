@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-xl-12">
           <div class="hero-cap text-center">
-            <h2>Card List</h2>
+            <h2>Giỏ hàng</h2>
           </div>
         </div>
       </div>
@@ -20,101 +20,188 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
+              <th scope="col">Sản phẩm</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Thành tiền</th>
+              <th scope="col">Size</th>
+              <th scope="col">Tùy chọn</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody *ngIf="product">
+            <tr *ngFor="let item of product; let i = index">
               <td>
                 <div class="media">
                   <div class="d-flex">
-                    <img src="assets/img/arrivel/arrivel_1.png" alt="" />
+                    <img src="http://localhost:3000/{{item.productImage[0]}}" alt="" />
                   </div>
                   <div class="media-body">
-                    <p>Minimalistic shop for multipurpose use</p>
+                    <p>{{item.name}}</p>
                   </div>
                 </div>
               </td>
               <td>
-                <h5>$360.00</h5>
+                <h5>{{item.price}}₫</h5>
               </td>
               <td>
                 <div class="product_count">
-                  <!-- <input type="text" value="1" min="0" max="10" title="Quantity:"
-                      class="input-text qty input-number" />
-                    <button
-                      class="increase input-number-increment items-count" type="button">
-                      <i class="ti-angle-up"></i>
-                    </button>
-                    <button
-                      class="reduced input-number-decrement items-count" type="button">
-                      <i class="ti-angle-down"></i>
-                    </button> -->
-                  <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="text" value="1" min="0" max="10">
-                  <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                  <span (click)="decreaseNumber(i)" class="input-number-decrement"> <i class="ti-minus"></i></span>
+                  <input [(ngModel)]="cartList[i].soluong" (change)="soluongChange(i)" class="input-number" type="text"
+                    min="0">
+                  <span (click)="increaseNumber(i)" class="input-number-increment"> <i class="ti-plus"></i></span>
                 </div>
               </td>
               <td>
-                <h5>$720.00</h5>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="media">
-                  <div class="d-flex">
-                    <img src="assets/img/arrivel/arrivel_2.png" alt="" />
-                  </div>
-                  <div class="media-body">
-                    <p>Minimalistic shop for multipurpose use</p>
-                  </div>
-                </div>
+                <h5>{{total[i]}}₫</h5>
               </td>
               <td>
-                <h5>$360.00</h5>
+                <select [(ngModel)]="cartList[i].size" (change)="sizeChange()" class="form-control" style="width:250px"
+                  id="brand">
+                  <option selected value="34.5">Size 34.5VN - 21.5CM</option>
+                  <option value="35">Size 35VN - 22.0CM</option>
+                  <option value="36">Size 36.0VN - 22.5CM</option>
+                  <option value="36.5">Size 36.5VN - 23.5CM</option>
+                  <option value="37">Size 37VN - 24.0CM</option>
+                  <option value="37.5">Size 37.5VN - 24.5CM</option>
+                  <option value="38">Size 38VN - 25CM</option>
+                  <option value="38.5">Size 38.5.0VN - 25.5CM</option>
+                  <option value="39">Size 39VN - 26CM</option>
+                  <option value="39.5">Size 39.5VN - 26.5CM</option>
+                  <option value="40">Size 40VN - 27CM</option>
+                  <option value="40.5">Size 40.5VN - 27.5CM</option>
+                  <option value="41">Size 41VN - 28CM</option>
+                  <option value="41.5">Size 41.5VN - 28.5CM</option>
+                  <option value="42">Size 42VN - 29CM</option>
+                </select>
               </td>
               <td>
-                <div class="product_count">
-                  <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="text" value="1" min="0" max="10">
-                  <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                </div>
-              </td>
-              <td>
-                <h5>$720.00</h5>
-              </td>
-            </tr>
-            <tr class="bottom_button">
-              <td>
-                <a class="btn_1" href="#">Update Cart</a>
-              </td>
-              <td></td>
-              <td></td>
-              <td>
-                <div class="cupon_text float-right">
-                  <a class="btn_1" href="#">Close Coupon</a>
-                </div>
+                <button (click)="currentProduct = item; vitri = i" type="button" class="btn btn-danger"
+                  data-toggle="modal" data-target="#deleteModal">
+                  Xóa
+                </button>
               </td>
             </tr>
             <tr>
               <td></td>
               <td></td>
               <td>
-                <h5>Subtotal</h5>
+                <h5>Tổng tiền</h5>
               </td>
               <td>
-                <h5>$2160.00</h5>
+                <h5>{{subTotal}}₫</h5>
               </td>
             </tr>
 
           </tbody>
         </table>
         <div class="checkout_btn_inner float-right">
-          <a class="btn_1" href="#">Continue Shopping</a>
-          <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+          <a style="margin-right: 20px;" class="btn_1" href="index.html">Tiếp tục mua sắm</a>
+          <button *ngIf="cartList" class="btn_1 checkout_btn_1" href="#" data-toggle="modal"
+            data-target="#orderModal">Đặt hàng</button>
+          <button *ngIf="!cartList" class="btn_1 checkout_btn_1" href="#" data-toggle="modal"
+            (click)="checkCartList()">Đặt hàng</button>
         </div>
       </div>
     </div>
+
+    <div *ngIf="currentProduct" class="modal" tabindex="-1" role="dialog" id="deleteModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Xóa sản phẩm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắc muốn xóa {{ currentProduct.name }}.</p>
+          </div>
+          <div class="modal-footer">
+            <button (click)="deleteProduct()" type="button" class="btn btn-danger" data-dismiss="modal">
+              Xóa
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="orderModal">
+      <div class="modal-dialog modal-xl" style="width:90%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Xóa sản phẩm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <section class="cart_area section_padding">
+              <div class="container">
+                <div class="cart_inner">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Sản phẩm</th>
+                          <th scope="col">Giá</th>
+                          <th scope="col">Số lượng</th>
+                          <th scope="col">Thành tiền</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="product">
+                        <tr *ngFor="let item of product; let i = index">
+                          <td>
+                            <div class="media">
+                              <div class="d-flex">
+                                <img src="http://localhost:3000/{{item.productImage[0]}}" alt="" />
+                              </div>
+                              <div class="media-body">
+                                <p>{{item.name}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <h5>{{item.price}}₫</h5>
+                          </td>
+                          <td>
+                            <div class="product_count">
+                              <input [(ngModel)]="cartList[i].soluong" (change)="soluongChange(i)" class="input-number"
+                                type="text" min="0" max="10" disabled>
+                            </div>
+                          </td>
+                          <td>
+                            <h5>{{total[i]}}₫</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <h5>Tổng tiền</h5>
+                          </td>
+                          <td>
+                            <h5>{{subTotal}}₫</h5>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="modal-footer">
+              <button (click)="sendOrder()" type="button" class="btn btn-success" data-dismiss="modal">
+                Đặt hàng
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>

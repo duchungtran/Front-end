@@ -28,13 +28,11 @@
 
 .product-detail-right h3 small {
   font-size: 14px;
-  color: gray;
 }
 
 .product-detail-right h5 {
   font-size: 18px;
   margin-bottom: 20px;
-  color: gray;
 }
 
 .product-detail-right h5 b {
@@ -67,14 +65,14 @@
   border: 1px solid #ffa800;
   background-color: #ffa800;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
-  padding: 15px 25px;
+  padding: 10px 15px;
   border-radius: 4px;
   margin-top: 20px;
-  width: 60%;
+  margin-left: 15px;
   text-align: center;
   display: inline-block;
 }

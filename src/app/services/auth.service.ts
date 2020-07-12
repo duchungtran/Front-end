@@ -36,6 +36,7 @@ export class AuthService {
           (res) => {
             localStorage.setItem('auth-token', res.json().token);
             this.router.navigateByUrl('/');
+            window.location.reload();
           },
           (err) => reject(err)
         );
@@ -48,7 +49,7 @@ export class AuthService {
       this.http.post(this.registerUrl, user).subscribe(
         (res) => {
           resolve(true);
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/login');
         },
         (err) => reject(err)
       );
@@ -82,6 +83,5 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('auth-token');
-    this.router.navigateByUrl('/');
   }
 }

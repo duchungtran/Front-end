@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     var length = Object.keys(this.product).length;
     for (var i = 1; i <= 6; i++) {
       this.lastestProduct[i - 1] = this.product[length - i];
-      console.log(this.lastestProduct[i - 1]);
+      //console.log(this.lastestProduct[i - 1]);
     }
   }
 }

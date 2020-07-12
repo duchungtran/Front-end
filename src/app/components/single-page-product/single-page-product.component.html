@@ -23,7 +23,7 @@
         <img src="assets/img//sp-loading.gif">
         Loading Images
       </div>
-      <div class="sp-wrap">
+      <div *ngIf="product.productImage" class="sp-wrap">
         <a href="http://localhost:3000/{{product.productImage[0]}}"><img
             src="http://localhost:3000/{{product.productImage[0]}}" alt=""></a>
         <a href="http://localhost:3000/{{product.productImage[1]}}"><img
@@ -33,13 +33,32 @@
       </div>
     </div>
     <div class="product-detail-right">
-      <h3>{{product.name}}</h3>
-      <h5><b>Giá: </b> <i class="fas fa-dollar-sign"></i> {{product.price}}</h5>
-      <h5><b>Nhãn hiệu: </b> {{product.brand}}</h5>
-      <h5><b>Availability : </b> in Stock</h5>
-      <a (click)="addToCart()" href="#" class="addtocart"><i class="fas fa-heart"></i> Add to Cart</a>
-      <a href="#" class="writereview"><i class="fas fa-pen"></i> Write a review</a>
-      <a href="#" class="buynow"><i class="fas fa-shopping-cart"></i> Buy Now</a>
+      <h3 style="font-family: poppins-bold, sans-serif"><b>{{product.name}}</b></h3>
+      <h5 style="font-family: poppins-bold, sans-serif"> <b>Giá:</b> {{product.price}}₫</h5>
+      <h5 style="font-family: poppins-bold, sans-serif"><b>Nhãn hiệu: </b> {{product.brand}}</h5>
+      <h5 style="font-family: poppins-bold, sans-serif"><b>Trạng thái : </b> Còn hàng</h5>
+      <h5 style="font-family: poppins-bold, sans-serif"><b>Size</b>
+        <select [(ngModel)]="size" class="form-control" style="width:250px" id="brand">
+          <option selected value="34.5">Size 34.5VN - 21.5CM</option>
+          <option value="35">Size 35VN - 22.0CM</option>
+          <option value="36">Size 36.0VN - 22.5CM</option>
+          <option value="36.5">Size 36.5VN - 23.5CM</option>
+          <option value="37">Size 37VN - 24.0CM</option>
+          <option value="37.5">Size 37.5VN - 24.5CM</option>
+          <option value="38">Size 38VN - 25CM</option>
+          <option value="38.5">Size 38.5.0VN - 25.5CM</option>
+          <option value="39">Size 39VN - 26CM</option>
+          <option value="39.5">Size 39.5VN - 26.5CM</option>
+          <option value="40">Size 40VN - 27CM</option>
+          <option value="40.5">Size 40.5VN - 27.5CM</option>
+          <option value="41">Size 41VN - 28CM</option>
+          <option value="41.5">Size 41.5VN - 28.5CM</option>
+          <option value="42">Size 42VN - 29CM</option>
+        </select>
+      </h5>
+
+      <a (click)="addToCart()" href="#" class="addtocart"><i class="fas fa-heart"></i> Thêm vào giỏ hàng</a>
+      <a href="#" class="buynow"><i class="fas fa-shopping-cart"></i> Mua ngay</a>
     </div>
   </div>
 </div>

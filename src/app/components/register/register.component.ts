@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
         'diachi',
         'sodienthoai',
       ])
-    )
+    ) {
       var userRegister = {
         username: this.registerForm.get('username').value,
         password: this.registerForm.get('password').value,
@@ -78,7 +78,8 @@ export class RegisterComponent implements OnInit {
         diachi: this.registerForm.get('diachi').value,
         sodienthoai: this.registerForm.get('sodienthoai').value,
       };
-    this.authService.register(userRegister);
+      this.authService.register(userRegister);
+    }
   }
 
   get username() {

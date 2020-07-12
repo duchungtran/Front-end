@@ -15,7 +15,9 @@
                 <ul>
                   <li *ngIf="!currentUser"><a routerLinkActive="active" [routerLink]="['/login']">Đăng nhập </a></li>
                   <li *ngIf="currentUser"><a href=""> {{currentUser.hoten}} </a></li>
-                  <li *ngIf="currentUser"><button (click)="logout()" class="astext">Đăng xuất</button></li>
+                  <li *ngIf="currentUser"><button (click)="logout();" onClick="window.location.reload();"
+                      class="astext">Đăng
+                      xuất</button></li>
                 </ul>
               </div>
             </div>
@@ -43,13 +45,15 @@
                     <li *ngIf="currentUser" class="nav-item dropdown">
                       <a *ngIf="checkRole()" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Quản lý giày
+                        Admin
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/productmanage']"
                           href="#">Danh sách giày</a>
                         <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/newproduct']" href="#">Thêm
                           sản phẩm</a>
+                        <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/ordermanage']"
+                          href="#">Quản lý đơn hàng</a>
                       </div>
                     </li>
                   </ul>
@@ -66,14 +70,10 @@
                     </div>
                   </div>
                 </li>
-                <li class=" d-none d-xl-block">
-                  <div class="favorit-items">
-                    <i class="far fa-heart"></i>
-                  </div>
-                </li>
+
                 <li>
                   <div class="shopping-card">
-                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="cart"><i class="fas fa-shopping-cart"></i></a>
                   </div>
                 </li>
               </ul>

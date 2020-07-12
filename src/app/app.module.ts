@@ -21,6 +21,7 @@ import { ProductManageComponent } from './components/product-manage/product-mana
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CartComponent } from './components/cart/cart.component';
+import { OrderManageComponent } from './components/order-manage/order-manage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { CartComponent } from './components/cart/cart.component';
     NewProductComponent,
     ProductManageComponent,
     CartComponent,
+    OrderManageComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { SinglePageProductComponent } from './components/single-page-product/sin
 import { NewProductComponent } from './components/new-product/new-product.component';
 import { ProductManageComponent } from './components/product-manage/product-manage.component';
 import { CartComponent } from './components/cart/cart.component';
+import { OrderManageComponent } from './components/order-manage/order-manage.component';
 const routes: Routes = [
   {
     path: '',
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+  },
+  {
+    path: 'ordermanage',
+    component: OrderManageComponent,
   },
   {
     path: ':id',
