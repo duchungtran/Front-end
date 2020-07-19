@@ -39,21 +39,23 @@
                 <nav>
                   <ul id="navigation">
                     <li><a href="index.html">Home</a></li>
-                    <li><a routerLinkActive="active" [routerLink]="['/vans']" href="">Vans</a></li>
-                    <li><a routerLinkActive=" active" [routerLink]="['/converse']" href="">Converse</a></li>
-                    <li><a routerLinkActive=" active" [routerLink]="['/nike']" href="">Nike</a></li>
+                    <li><a href="http://localhost:4200/vans" routerLinkActive="active">Vans</a></li>
+                    <li><a routerLinkActive=" active" [routerLink]="['/converse']"
+                        href="http://localhost:4200/converse">Converse</a></li>
+                    <li><a routerLinkActive=" active" [routerLink]="['/nike']"
+                        href="http://localhost:4200/nike">Nike</a></li>
                     <li *ngIf="currentUser" class="nav-item dropdown">
                       <a *ngIf="checkRole()" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/productmanage']"
-                          href="#">Danh sách giày</a>
-                        <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/newproduct']" href="#">Thêm
+                        <a class="dropdown-item" routerLinkActive=" active"
+                          href="http://localhost:4200/productmanage">Danh sách giày</a>
+                        <a class="dropdown-item" routerLinkActive=" active" href="http://localhost:4200/newproduct">Thêm
                           sản phẩm</a>
-                        <a class="dropdown-item" routerLinkActive=" active" [routerLink]="['/ordermanage']"
-                          href="#">Quản lý đơn hàng</a>
+                        <a class="dropdown-item" routerLinkActive=" active"
+                          href="http://localhost:4200/ordermanage">Quản lý đơn hàng</a>
                       </div>
                     </li>
                   </ul>
@@ -64,15 +66,49 @@
               <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
                 <li class="d-none d-xl-block">
                   <div class="form-box f-right ">
-                    <input type="text" name="Search" placeholder="Search products">
+                    <input [(ngModel)]="nameFilter" (ngModelChange)="filterProduct($event)" type="text" name="Search"
+                      placeholder="Tìm kiếm sản phẩm">
                     <div class="search-icon">
                       <i class="fas fa-search special-tag"></i>
                     </div>
+                    <div *ngIf="product && nameFilter" style="padding: 0 0 10px 0;
+                    color: #555;
+                    position: absolute;
+                    top: 40px !important;
+                    z-index: 9999;
+                    width: 100%;
+                    min-width: 290px;
+                    max-width: 100%;
+                    width: 100% !important;
+                    background-color: #f8f8f8; box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.15);">
+                      <div class="search_top" style="display: block;">
+                        <ul>
+                          <li *ngFor="let item of product; let i = index">
+                            <a href="http://localhost:4200/{{ item._id }}">
+                              <div>
+                                <img src="http://localhost:3000/{{ item.productImage[0] }}" alt="">
+                              </div>
+                              <div>
+                                <div>
+                                  <h4 style="font-size: 13px;
+                                  font-weight: 500;">{{item.name}}</h4>
+                                </div>
+                                <div>
+                                  <h4 style="font-size: 13px;
+                                  color: #d0021b; font-weight: 500;">{{item.price}}₫</h4>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
                   </div>
                 </li>
 
                 <li>
-                  <div class="shopping-card">
+                  <div class="shopping-card" [attr.soluong]="cartList">
                     <a href="cart"><i class="fas fa-shopping-cart"></i></a>
                   </div>
                 </li>

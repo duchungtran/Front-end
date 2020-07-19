@@ -46,9 +46,6 @@ export class LoginComponent implements OnInit {
       };
       this.authService.login(userLogin);
     }
-    this.router.navigate(['/']);
-    location.reload;
-    //window.location.assign('http://localhost:4200/');
   }
 
   getDecodedAccessToken(token: string): any {

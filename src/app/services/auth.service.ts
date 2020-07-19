@@ -3,6 +3,7 @@ import { Http, Response, HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +12,8 @@ export class AuthService {
   constructor(
     private http: Http,
     public jwtHelper: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
   private loginUrl = 'http://localhost:3000/customer/login';
   private userUrl = 'http://localhost:3000/user/login';
@@ -25,9 +27,14 @@ export class AuthService {
         this.http.post(this.loginUrl, user).subscribe(
           (res) => {
             localStorage.setItem('auth-token', res.json().token);
-            this.router.navigateByUrl('/');
+            this.router.navigate(['/home']);
+            window.location.replace('http://localhost:4200/home');
           },
-          (err) => reject(err)
+          (err) => {
+            //console.log(err._body);
+            this.toastr.warning(err._body);
+            reject(err);
+          }
         );
       });
     } else {
@@ -35,10 +42,14 @@ export class AuthService {
         this.http.post(this.userUrl, user).subscribe(
           (res) => {
             localStorage.setItem('auth-token', res.json().token);
-            this.router.navigateByUrl('/');
-            window.location.reload();
+            this.router.navigate(['/home']);
+            window.location.replace('http://localhost:4200/home');
           },
-          (err) => reject(err)
+          (err) => {
+            //console.log(err._body);
+            this.toastr.warning(err._body);
+            reject(err);
+          }
         );
       });
     }

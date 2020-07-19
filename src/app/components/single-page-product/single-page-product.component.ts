@@ -1,36 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
-import { DOCUMENT } from '@angular/common';
-import { Inject, AfterViewInit, ElementRef } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-single-page-product',
   templateUrl: './single-page-product.component.html',
   styleUrls: ['./single-page-product.component.css'],
 })
-export class SinglePageProductComponent implements OnInit, AfterViewInit {
+export class SinglePageProductComponent implements OnInit {
   public product;
+  public currentUser;
   public size = 36.5;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private toastr: ToastrService,
-    @Inject(DOCUMENT) private document,
-    private elementRef: ElementRef
+    public authService: AuthService,
+    public jwtHelper: JwtHelperService
   ) {}
 
   ngOnInit(): void {
     this.getProduct();
+    this.getCurrentUser();
   }
-  ngAfterViewInit() {
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.innerHTML = "console.log('done');"; //inline script
-    s.src = 'src/assets/js/custom.js'; //external script
-  }
-
   async getProduct() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.productService.getProductById(id).then((data) => {
@@ -41,13 +36,33 @@ export class SinglePageProductComponent implements OnInit, AfterViewInit {
 
   addToCart() {
     var temp1 = [];
-    if (JSON.parse(localStorage.getItem('productsInCart'))) {
-      temp1 = JSON.parse(localStorage.getItem('productsInCart'));
+    var customer = this.currentUser.username;
+    if (JSON.parse(localStorage.getItem(this.currentUser.username))) {
+      temp1 = JSON.parse(localStorage.getItem(this.currentUser.username));
     }
     var temp = { id: this.product._id, soluong: 1, size: this.size };
     temp1.push(temp);
-    localStorage.setItem('productsInCart', JSON.stringify(temp1));
+    localStorage.setItem(this.currentUser.username, JSON.stringify(temp1));
     this.toastr.success('Thêm vào giỏ hàng thành công');
     console.log(temp1);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
+  }
+
+  getCurrentUser() {
+    const token = localStorage.getItem('auth-token');
+    let tokenInfo = this.getDecodedAccessToken(token);
+    if (token) {
+      this.authService.getCurrentUser().then((data) => {
+        this.currentUser = data;
+        //console.log(this.currentUser);
+      });
+    }
   }
 }

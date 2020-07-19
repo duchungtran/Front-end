@@ -48,6 +48,7 @@ body {
   min-height: 50px;
   min-width: 50px;
   max-width: 50px;
+
 }
 
 .sp-thumbs a:link,
@@ -76,6 +77,7 @@ body {
 .sp-current {
   opacity: 1 !important;
   position: relative;
+  background-repeat: no-repeat;
 }
 
 /* Image currently being viewed */

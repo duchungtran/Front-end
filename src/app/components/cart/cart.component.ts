@@ -29,12 +29,30 @@ export class CartComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {
-    this.getCartList();
-    console.log(this.cartList);
+  async ngOnInit(): Promise<void> {
+    await this.getCurrentUser();
+    await this.getCartList();
+  }
+  async getCurrentUser() {
+    const token = localStorage.getItem('auth-token');
+    let tokenInfo = this.getDecodedAccessToken(token);
+    if (token) {
+      await this.authService.getCurrentUser().then((data) => {
+        this.currentUser = data;
+        console.log(this.currentUser);
+      });
+    }
+  }
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
   }
   async getCartList() {
-    this.cartList = JSON.parse(localStorage.getItem('productsInCart'));
+    this.cartList = JSON.parse(localStorage.getItem(this.currentUser.username));
+    //console.log(this.cartList);
     if (this.cartList) {
       for (var i = 0; i < this.cartList.length; i++) {
         await this.productService
@@ -44,7 +62,7 @@ export class CartComponent implements OnInit {
             this.priceForm.push(this.product[i].price);
           });
       }
-      //console.log(this.product);
+      console.log(this.product);
       this.priceCal();
     }
 
@@ -81,35 +99,30 @@ export class CartComponent implements OnInit {
       //console.log(this.total);
     }
     this.subTotal = Number(this.subTotal).toLocaleString('number');
-    localStorage.setItem('productsInCart', JSON.stringify(this.cartList));
+    localStorage.setItem(
+      this.currentUser.username,
+      JSON.stringify(this.cartList)
+    );
   }
   soluongChange(i) {
     this.priceCal();
   }
   deleteProduct() {
     this.cartList.splice(this.vitri, 1);
-    localStorage.setItem('productsInCart', JSON.stringify(this.cartList));
+    localStorage.setItem(
+      this.currentUser.username,
+      JSON.stringify(this.cartList)
+    );
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['/cart']));
   }
   sizeChange() {
-    localStorage.setItem('productsInCart', JSON.stringify(this.cartList));
+    localStorage.setItem(
+      this.currentUser.username,
+      JSON.stringify(this.cartList)
+    );
   }
-  getCurrentUser() {
-    const token = localStorage.getItem('auth-token');
-
-    let tokenInfo = this.getDecodedAccessToken(token);
-    this.currentUser = tokenInfo;
-  }
-  getDecodedAccessToken(token: string): any {
-    try {
-      return jwt_decode(token);
-    } catch (Error) {
-      return null;
-    }
-  }
-
   sendOrder() {
     this.getCurrentUser();
     var order = {
@@ -122,7 +135,7 @@ export class CartComponent implements OnInit {
           .orderDetail(this.cartList)
           .then((data) => {
             this.toastr.success('Đặt hàng thành công');
-            localStorage.removeItem('productsInCart');
+            localStorage.removeItem(this.currentUser.username);
             this.router
               .navigateByUrl('/', { skipLocationChange: true })
               .then(() => this.router.navigate(['/cart']));

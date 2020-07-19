@@ -14,6 +14,11 @@ import { OrderManageComponent } from './components/order-manage/order-manage.com
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
     component: HomeComponent,
   },
   {
