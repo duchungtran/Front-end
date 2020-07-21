@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-xl-12">
           <div class="hero-cap text-center">
-            <h2>product list</h2>
+            <h2>Danh sách giày Vans</h2>
           </div>
         </div>
       </div>
@@ -21,12 +21,7 @@
     <div class="row" style="width: 1500px; margin-left: -50px;">
       <div class="col-md-2">
         <div class="product_sidebar">
-          <div class="single_sedebar">
-            <form action="#">
-              <input type="text" name="#" placeholder="Search keyword" />
-              <i class="ti-search"></i>
-            </form>
-          </div>
+
           <div class="single_sedebar">
             <div class="select_option">
               <div class="select_option_list">
@@ -63,11 +58,12 @@
                   | paginate: { itemsPerPage: pageSize, currentPage:pageIndex, totalItems:productLength };
                 let i = index
               " class="col-lg-5 col-sm-5">
-              <div style="width: 206.25px;" class="single_product_item">
-                <img style="width: 206.25px; height: 206.25px;" src="http://localhost:3000/{{ item.productImage[0] }}"
-                  alt="" class="img-fluid" />
+              <div style="width: 206.25px;" class="single_product_item"><a
+                  href="http://localhost:4200/{{item._id}}"><img style="width: 206.25px; height: 206.25px;"
+                    src="http://localhost:3000/{{ item.productImage[0] }}" alt="" class="img-fluid" /></a>
+
                 <h3 style="font-size: 14px;">
-                  <a href="single-product.html">{{ item.name }}</a>
+                  <a href="http://localhost:4200/{{item._id}}">{{ item.name }}</a>
                 </h3>
                 <p style="text-align: center; font-size: 14px;">
                   {{ item.price }}₫

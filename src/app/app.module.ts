@@ -22,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderManageComponent } from './components/order-manage/order-manage.component';
+import { OwlModule } from 'ngx-owl-carousel';
+import { CompleteOrderComponent } from './components/complete-order/complete-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { OrderManageComponent } from './components/order-manage/order-manage.com
     ProductManageComponent,
     CartComponent,
     OrderManageComponent,
+    CompleteOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { OrderManageComponent } from './components/order-manage/order-manage.com
     ReactiveFormsModule,
     NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
+    OwlModule, // ToastrModule added
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

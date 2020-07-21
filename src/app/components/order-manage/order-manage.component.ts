@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-order-manage',
   templateUrl: './order-manage.component.html',
@@ -22,7 +23,8 @@ export class OrderManageComponent implements OnInit {
   public sdtFilter = '';
   constructor(
     private orderService: OrderService,
-    private productService: ProductService
+    private productService: ProductService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -93,5 +95,21 @@ export class OrderManageComponent implements OnInit {
       //console.log(this.total);
     }
     this.subTotal = Number(this.subTotal).toLocaleString('number');
+  }
+
+  completeOrder() {
+    this.orderService
+      .completeOrder(this.currentOrder)
+      .then((data) => {
+        this.orderService
+          .deleteOrderDetail(this.currentOrder._id)
+          .then((data) => {
+            this.toastr.success('Hoàn tất đơn hàng thành công');
+            window.location.reload();
+          });
+      })
+      .catch((err) => {
+        this.toastr.warning('Hoàn tất đơn hàng thất bại');
+      });
   }
 }

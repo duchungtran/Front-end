@@ -11,6 +11,7 @@ import { NewProductComponent } from './components/new-product/new-product.compon
 import { ProductManageComponent } from './components/product-manage/product-manage.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderManageComponent } from './components/order-manage/order-manage.component';
+import { CompleteOrderComponent } from './components/complete-order/complete-order.component';
 const routes: Routes = [
   {
     path: '',
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'ordermanage',
     component: OrderManageComponent,
+  },
+  {
+    path: 'completeorder',
+    component: CompleteOrderComponent,
   },
   {
     path: ':id',

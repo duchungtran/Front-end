@@ -19,17 +19,18 @@
 <div *ngIf="product" class="product-detail">
   <div class="container">
     <div class="product-detail-left">
+
       <div *ngIf="!product.productImage" class="sp-loading">
         <img src="assets/img/sp-loading.gif">
         Loading Images
       </div>
-      <div *ngIf="product.productImage" class="sp-wrap">
-        <a href="http://localhost:3000/{{product.productImage[0]}}"><img
-            src="assets/img/shoes_pic/{{product.productImage[0]}}" alt=""></a>
-        <a href="http://localhost:3000/{{product.productImage[1]}}"><img
-            src="http://localhost:3000/{{product.productImage[1]}}" alt=""></a>
-        <a href="http://localhost:3000/{{product.productImage[2]}}"><img
-            src="http://localhost:3000/{{product.productImage[2]}}" alt=""></a>
+      <div class="sp-wrap">
+        <a href="http://localhost:3000/{{product.productImage[0]}}"><img src="assets/img/shoes_pic/{{imageUrl[0]}}"
+            alt=""></a>
+        <a href="http://localhost:3000/{{product.productImage[1]}}"><img src="assets/img/shoes_pic/{{imageUrl[1]}}"
+            alt=""></a>
+        <a href="http://localhost:3000/{{product.productImage[2]}}"><img src="assets/img/shoes_pic/{{imageUrl[2]}}"
+            alt=""></a>
       </div>
     </div>
     <div class="product-detail-right">

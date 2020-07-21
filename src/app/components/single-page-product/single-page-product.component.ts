@@ -14,6 +14,7 @@ export class SinglePageProductComponent implements OnInit {
   public product;
   public currentUser;
   public size = 36.5;
+  public imageUrl;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -31,6 +32,21 @@ export class SinglePageProductComponent implements OnInit {
     await this.productService.getProductById(id).then((data) => {
       this.product = data;
     });
+    this.imageUrl = [
+      this.product.name +
+        this.product.productImage[0].slice(
+          this.product.productImage[0].length - 4
+        ),
+      this.product.name +
+        this.product.productImage[1].slice(
+          this.product.productImage[1].length - 7
+        ),
+      this.product.name +
+        this.product.productImage[2].slice(
+          this.product.productImage[2].length - 7
+        ),
+    ];
+    console.log(this.imageUrl);
     console.log(this.product);
   }
 
