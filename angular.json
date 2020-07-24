@@ -85,9 +85,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/owl.carousel.min.css",
+              "src/assets/style.css",
+              "./node_modules/owl.carousel/dist/assets/owl.carousel.min.css",
+              "./node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"
             ],
-            "scripts": ["/assets/js/vendor/modernizr-3.5.0.min.js", "/assets/js/vendor/jquery-1.12.4.min.js", "/assets/js/popper.min.js", "/assets/js/bootstrap.min.js", "/assets/js/jquery.slicknav.min.js", "/assets/js/owl.carousel.min.js", "/assets/js/slick.min.js", "/assets/js/wow.min.js", "/assets/js/animated.headline.js", "/assets/js/jquery.magnific-popup.js", "/assets/js/jquery.scrollUp.min.js", "/assets/js/jquery.nice-select.min.js", "/assets/js/jquery.sticky.js", "/assets/js/plugins.js", "/assets/js/main.js"]
+            "scripts": ["src/assets/js/vendor/modernizr-3.5.0.min.js", "src/assets/js/vendor/jquery-1.12.4.min.js", "src/assets/js/popper.min.js", "src/assets/js/bootstrap.min.js", "src/assets/js/jquery.slicknav.min.js", "src/assets/js/owl.carousel.min.js", "src/assets/js/slick.min.js", "src/assets/js/wow.min.js", "src/assets/js/animated.headline.js", "src/assets/js/jquery.magnific-popup.js", "src/assets/js/jquery.scrollUp.min.js", "src/assets/js/jquery.nice-select.min.js", "src/assets/js/jquery.sticky.js", "src/assets/js/plugins.js", "src/assets/js/main.js", "src/assets/js/smoothproducts.min.js", "./node_modules/owl.carousel/dist/owl.carousel.min.js"]
           }
         },
         "lint": {
