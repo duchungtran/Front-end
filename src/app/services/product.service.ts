@@ -3,7 +3,7 @@ import { Http, Response, HttpModule } from '@angular/http';
 import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +11,8 @@ export class ProductService {
   constructor(
     private http: Http,
     public jwtHelper: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   private url = 'http://localhost:3000/product';
@@ -64,10 +65,12 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.post(this.url, formData).subscribe(
         (res) => {
+          this.toastr.success('Tạo sản phẩm mới thành công');
           resolve(true);
-          this.router.navigateByUrl('/newproduct');
+          window.location.replace('http://localhost:4200/productmanage');
         },
         (err) => {
+          this.toastr.warning(err._body);
           rejects(err);
         }
       );
@@ -78,10 +81,12 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.put(this.url + '/' + id, product).subscribe(
         (res) => {
+          this.toastr.success('Sửa thông tin sản phẩm thành công');
           resolve(true);
-          this.router.navigateByUrl('/productmanage');
+          window.location.replace('http://localhost:4200/productmanage');
         },
         (err) => {
+          this.toastr.warning(err._body);
           rejects(err);
         }
       );
@@ -91,10 +96,12 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.delete(this.url + '/' + id).subscribe(
         (res) => {
+          this.toastr.success('Xóa sản phẩm thành công');
           resolve(true);
-          this.router.navigateByUrl('/productmanage');
+          window.location.replace('http://localhost:4200/productmanage');
         },
         (err) => {
+          this.toastr.warning(err._body);
           rejects(err);
         }
       );

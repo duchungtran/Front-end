@@ -60,9 +60,13 @@ export class AuthService {
       this.http.post(this.registerUrl, user).subscribe(
         (res) => {
           resolve(true);
+          this.toastr.success('Đăng ký thành công');
           this.router.navigateByUrl('/login');
         },
-        (err) => reject(err)
+        (err) => {
+          this.toastr.warning(err._body);
+          reject(err);
+        }
       );
     });
   }

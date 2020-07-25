@@ -50,30 +50,46 @@
                         Admin
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" routerLinkActive=" active"
-                          href="http://localhost:4200/productmanage">Danh sách giày</a>
-                        <a class="dropdown-item" routerLinkActive=" active" href="http://localhost:4200/newproduct">Thêm
-                          sản phẩm</a>
-                        <a class="dropdown-item" routerLinkActive=" active"
-                          href="http://localhost:4200/ordermanage">Quản lý đơn hàng</a>
-                        <a class="dropdown-item" routerLinkActive=" active"
-                          href="http://localhost:4200/completeorder">Đơn hàng đã hoàn thành</a>
-                      </div>
+                    <li class="dropdown-submenu">
+                      <a style="margin-right: 45px;" class="dropdown-item" tabindex="-1" href="#">Quản lý giày</a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLinkActive=" active"
+                            href="http://localhost:4200/productmanage">Danh
+                            sách giày</a>
+                          <a class="dropdown-item" routerLinkActive=" active"
+                            href="http://localhost:4200/newproduct">Thêm
+                            sản phẩm</a></li>
+                      </ul>
                     </li>
-                  </ul>
-                </nav>
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item" tabindex="-1" href="#">Quản lý đơn hàng</a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLinkActive=" active"
+                            href="http://localhost:4200/ordermanage">Danh sách
+                            đơn hàng</a>
+                          <a class="dropdown-item" routerLinkActive=" active"
+                            href="http://localhost:4200/completeorder">Đơn
+                            hàng đã hoàn thành</a></li>
+                      </ul>
+                    </li>
+
               </div>
+              </li>
+
+              </ul>
+              </nav>
             </div>
-            <div class=" col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
-              <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
-                <li class="d-none d-xl-block">
-                  <div class="form-box f-right ">
-                    <input [(ngModel)]="nameFilter" (ngModelChange)="filterProduct($event)" type="text" name="Search"
-                      placeholder="Tìm kiếm sản phẩm">
-                    <div class="search-icon">
-                      <i class="fas fa-search special-tag"></i>
-                    </div>
-                    <div *ngIf="product && nameFilter" style="padding: 0 0 10px 0;
+          </div>
+          <div class=" col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
+            <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+              <li class="d-none d-xl-block">
+                <div class="form-box f-right ">
+                  <input [(ngModel)]="nameFilter" (ngModelChange)="filterProduct($event)" type="text" name="Search"
+                    placeholder="Tìm kiếm sản phẩm">
+                  <div class="search-icon">
+                    <i class="fas fa-search special-tag"></i>
+                  </div>
+                  <div *ngIf="product && nameFilter" style="padding: 0 0 10px 0;
                     color: #555;
                     position: absolute;
                     top: 40px !important;
@@ -83,47 +99,47 @@
                     max-width: 100%;
                     width: 100% !important;
                     background-color: #f8f8f8; box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.15);">
-                      <div class="search_top" style="display: block;">
-                        <ul>
-                          <li *ngFor="let item of product; let i = index">
-                            <a href="http://localhost:4200/{{ item._id }}">
+                    <div class="search_top" style="display: block;">
+                      <ul>
+                        <li *ngFor="let item of product; let i = index">
+                          <a href="http://localhost:4200/{{ item._id }}">
+                            <div>
+                              <img src="http://localhost:3000/{{ item.productImage[0] }}" alt="">
+                            </div>
+                            <div>
                               <div>
-                                <img src="http://localhost:3000/{{ item.productImage[0] }}" alt="">
-                              </div>
-                              <div>
-                                <div>
-                                  <h4 style="font-size: 13px;
+                                <h4 style="font-size: 13px;
                                   font-weight: 500;">{{item.name}}</h4>
-                                </div>
-                                <div>
-                                  <h4 style="font-size: 13px;
-                                  color: #d0021b; font-weight: 500;">{{item.price}}₫</h4>
-                                </div>
                               </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                              <div>
+                                <h4 style="font-size: 13px;
+                                  color: #d0021b; font-weight: 500;">{{item.price}}₫</h4>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
                     </div>
-
                   </div>
-                </li>
 
-                <li>
-                  <div class="shopping-card" [attr.soluong]="cartList">
-                    <a href="cart"><i class="fas fa-shopping-cart"></i></a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <!-- Mobile Menu -->
-            <div class="col-12">
-              <div class="mobile_menu d-block d-lg-none"></div>
-            </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="shopping-card" [attr.soluong]="cartList">
+                  <a href="cart"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- Mobile Menu -->
+          <div class="col-12">
+            <div class="mobile_menu d-block d-lg-none"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Header End -->
 </header>
