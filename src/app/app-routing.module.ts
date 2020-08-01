@@ -12,6 +12,8 @@ import { ProductManageComponent } from './components/product-manage/product-mana
 import { CartComponent } from './components/cart/cart.component';
 import { OrderManageComponent } from './components/order-manage/order-manage.component';
 import { CompleteOrderComponent } from './components/complete-order/complete-order.component';
+import { AuthorizationGuard } from '../app/services/authorization.guard';
+import { CustomerManageComponent } from './components/customer-manage/customer-manage.component';
 const routes: Routes = [
   {
     path: '',
@@ -45,10 +47,18 @@ const routes: Routes = [
   {
     path: 'newproduct',
     component: NewProductComponent,
+    canActivate: [AuthorizationGuard],
+    data: {
+      allowedRoles: ['admin'],
+    },
   },
   {
     path: 'productmanage',
     component: ProductManageComponent,
+    canActivate: [AuthorizationGuard],
+    data: {
+      allowedRoles: ['admin'],
+    },
   },
   {
     path: 'cart',
@@ -57,10 +67,26 @@ const routes: Routes = [
   {
     path: 'ordermanage',
     component: OrderManageComponent,
+    canActivate: [AuthorizationGuard],
+    data: {
+      allowedRoles: ['admin'],
+    },
   },
   {
     path: 'completeorder',
     component: CompleteOrderComponent,
+    canActivate: [AuthorizationGuard],
+    data: {
+      allowedRoles: ['admin'],
+    },
+  },
+  {
+    path: 'customermanage',
+    component: CustomerManageComponent,
+    canActivate: [AuthorizationGuard],
+    data: {
+      allowedRoles: ['admin'],
+    },
   },
   {
     path: ':id',

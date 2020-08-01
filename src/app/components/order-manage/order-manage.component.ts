@@ -74,6 +74,7 @@ export class OrderManageComponent implements OnInit {
       length += 1;
     }
     this.priceCal();
+
     //this.product = tempProduct;
     //console.log(this.product);
   }
@@ -104,8 +105,17 @@ export class OrderManageComponent implements OnInit {
         this.orderService
           .deleteOrderDetail(this.currentOrder._id)
           .then((data) => {
+            for (var i = 0; i < this.currentOrder.product.length; i++) {
+              const productSoLuong = {
+                soluong: this.product[i].soluong - this.currentOrder.soluong[i],
+              };
+              this.productService.updateSoLuong(
+                this.currentOrder.product[i],
+                productSoLuong
+              );
+            }
             this.toastr.success('Hoàn tất đơn hàng thành công');
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
           });
       })
       .catch((err) => {

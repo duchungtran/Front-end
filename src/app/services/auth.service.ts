@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +28,6 @@ export class AuthService {
         this.http.post(this.loginUrl, user).subscribe(
           (res) => {
             localStorage.setItem('auth-token', res.json().token);
-            this.router.navigate(['/home']);
             window.location.replace('http://localhost:4200/home');
           },
           (err) => {
@@ -42,7 +42,6 @@ export class AuthService {
         this.http.post(this.userUrl, user).subscribe(
           (res) => {
             localStorage.setItem('auth-token', res.json().token);
-            this.router.navigate(['/home']);
             window.location.replace('http://localhost:4200/home');
           },
           (err) => {
@@ -98,5 +97,46 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('auth-token');
+  }
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('auth-token');
+    // Check whether the token is expired and return
+    // true or false
+    if (token == null) {
+      return false;
+    } else {
+      return !this.jwtHelper.isTokenExpired(token);
+    }
+  }
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
+  }
+  isAuthorized(allowedRoles: string[]): boolean {
+    // check if the list of allowed roles is empty, if empty, authorize the user to access the page
+    if (allowedRoles == null || allowedRoles.length === 0) {
+      return true;
+    }
+    const token = localStorage.getItem('auth-token');
+    const decodeToken = this.jwtHelper.decodeToken(token);
+    // get token from local storage or state management
+    if (decodeToken['_id'] != '5ee78cf15e71a22be49a49f5') {
+      var currentUser;
+      this.getCurrentUser().then((data) => {
+        currentUser = data;
+      });
+      // check if it was decoded successfully, if not the token is not valid, deny access
+      if (!currentUser) {
+        console.log('Invalid token');
+        return false;
+      }
+      return allowedRoles.includes(currentUser['role']);
+    } else {
+      return allowedRoles.includes('admin');
+    }
+    // check if the user roles is in the list of allowed roles, return true if allowed and false if not allowed
   }
 }

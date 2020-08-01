@@ -65,9 +65,13 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.post(this.url, formData).subscribe(
         (res) => {
-          this.toastr.success('Tạo sản phẩm mới thành công');
           resolve(true);
-          window.location.replace('http://localhost:4200/productmanage');
+          this.toastr.success('Tạo sản phẩm mới thành công');
+          setTimeout(
+            () =>
+              window.location.replace('http://localhost:4200/productmanage'),
+            1000
+          );
         },
         (err) => {
           this.toastr.warning(err._body);
@@ -81,9 +85,12 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.put(this.url + '/' + id, product).subscribe(
         (res) => {
-          this.toastr.success('Sửa thông tin sản phẩm thành công');
           resolve(true);
-          window.location.replace('http://localhost:4200/productmanage');
+          setTimeout(
+            () =>
+              window.location.replace('http://localhost:4200/productmanage'),
+            1000
+          );
         },
         (err) => {
           this.toastr.warning(err._body);
@@ -96,12 +103,27 @@ export class ProductService {
     return new Promise((resolve, rejects) => {
       this.http.delete(this.url + '/' + id).subscribe(
         (res) => {
-          this.toastr.success('Xóa sản phẩm thành công');
           resolve(true);
-          window.location.replace('http://localhost:4200/productmanage');
+          setTimeout(
+            () =>
+              window.location.replace('http://localhost:4200/productmanage'),
+            1000
+          );
         },
         (err) => {
           this.toastr.warning(err._body);
+          rejects(err);
+        }
+      );
+    });
+  }
+  updateSoLuong(id: any, soluong: any): Promise<boolean> {
+    return new Promise((resolve, rejects) => {
+      this.http.patch(this.url + '/' + id, soluong).subscribe(
+        (res) => {
+          resolve(true);
+        },
+        (err) => {
           rejects(err);
         }
       );
