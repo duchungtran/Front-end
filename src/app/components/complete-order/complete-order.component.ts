@@ -103,7 +103,7 @@ export class CompleteOrderComponent implements OnInit {
       .deleteCompleteOrder(this.currentOrder._id)
       .then((data) => {
         this.toastr.success('Xóa đơn hàng thành công');
-        window.location.reload();
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
         this.toastr.warning('Xóa đơn hàng thất bại');

@@ -14,7 +14,6 @@ import { OrderManageComponent } from './components/order-manage/order-manage.com
 import { CompleteOrderComponent } from './components/complete-order/complete-order.component';
 import { AuthorizationGuard } from '../app/services/authorization.guard';
 import { CustomerManageComponent } from './components/customer-manage/customer-manage.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -88,10 +87,6 @@ const routes: Routes = [
     data: {
       allowedRoles: ['admin'],
     },
-  },
-  {
-    path: 'userprofile',
-    component: UserProfileComponent,
   },
   {
     path: ':id',

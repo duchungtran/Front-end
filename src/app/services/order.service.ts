@@ -115,6 +115,7 @@ export class OrderService {
   }
 
   deleteCompleteOrder(id: any): Promise<boolean> {
+    console.log(id);
     return new Promise((resolve, rejects) => {
       this.http.delete(this.completeOrderUrl + '/' + id).subscribe(
         (res) => {

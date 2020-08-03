@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
   public newUser = {
     username: '',
     password: '',
@@ -41,7 +46,7 @@ export class RegisterComponent implements OnInit {
       ]),
       sodienthoai: new FormControl('', [
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(5),
         Validators.maxLength(32),
       ]),
     });
@@ -49,27 +54,21 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (
-      !this.registerForm.hasError('requied', [
-        'username',
-        'password',
-        'hoten',
-        'diachi',
-        'sodienthoai',
-      ]) &&
-      !this.registerForm.hasError('minlength', [
-        'username',
-        'password',
-        'hoten',
-        'diachi',
-        'sodienthoai',
-      ]) &&
-      !this.registerForm.hasError('maxlength', [
-        'username',
-        'password',
-        'hoten',
-        'diachi',
-        'sodienthoai',
-      ])
+      !this.registerForm.get('username').hasError('required') &&
+      !this.registerForm.get('password').hasError('required') &&
+      !this.registerForm.get('hoten').hasError('required') &&
+      !this.registerForm.get('diachi').hasError('required') &&
+      !this.registerForm.get('sodienthoai').hasError('required') &&
+      !this.registerForm.get('username').hasError('minlength') &&
+      !this.registerForm.get('password').hasError('minlength') &&
+      !this.registerForm.get('hoten').hasError('minlength') &&
+      !this.registerForm.get('diachi').hasError('minlength') &&
+      !this.registerForm.get('sodienthoai').hasError('minlength') &&
+      !this.registerForm.get('username').hasError('maxlength') &&
+      !this.registerForm.get('password').hasError('maxlength') &&
+      !this.registerForm.get('hoten').hasError('maxlength') &&
+      !this.registerForm.get('diachi').hasError('maxlength') &&
+      !this.registerForm.get('sodienthoai').hasError('maxlength')
     ) {
       var userRegister = {
         username: this.registerForm.get('username').value,
@@ -78,7 +77,19 @@ export class RegisterComponent implements OnInit {
         diachi: this.registerForm.get('diachi').value,
         sodienthoai: this.registerForm.get('sodienthoai').value,
       };
-      this.authService.register(userRegister);
+      if (
+        userRegister.username &&
+        userRegister.password &&
+        userRegister.hoten &&
+        userRegister.diachi &&
+        userRegister.sodienthoai
+      ) {
+        this.authService.register(userRegister);
+      } else {
+        this.toastr.warning('Yêu cầu nhập đầy đủ các trường thông tin');
+      }
+    } else {
+      this.toastr.warning('Yêu cầu nhập đầy đủ các trường thông tin');
     }
   }
 

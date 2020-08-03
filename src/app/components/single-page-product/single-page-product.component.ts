@@ -51,16 +51,20 @@ export class SinglePageProductComponent implements OnInit {
   }
 
   addToCart() {
-    var temp1 = [];
-    var customer = this.currentUser.username;
-    if (JSON.parse(localStorage.getItem(this.currentUser.username))) {
-      temp1 = JSON.parse(localStorage.getItem(this.currentUser.username));
+    if (this.currentUser) {
+      var temp1 = [];
+      var customer = this.currentUser.username;
+      if (JSON.parse(localStorage.getItem(this.currentUser.username))) {
+        temp1 = JSON.parse(localStorage.getItem(this.currentUser.username));
+      }
+      var temp = { id: this.product._id, soluong: 1, size: this.size };
+      temp1.push(temp);
+      localStorage.setItem(this.currentUser.username, JSON.stringify(temp1));
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+      console.log(temp1);
+    } else {
+      this.toastr.warning('Yêu cầu đăng nhập để thêm sản phẩm vào giỏ');
     }
-    var temp = { id: this.product._id, soluong: 1, size: this.size };
-    temp1.push(temp);
-    localStorage.setItem(this.currentUser.username, JSON.stringify(temp1));
-    this.toastr.success('Thêm vào giỏ hàng thành công');
-    console.log(temp1);
   }
 
   getDecodedAccessToken(token: string): any {

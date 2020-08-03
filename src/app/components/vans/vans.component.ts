@@ -11,6 +11,7 @@ export class VansComponent implements OnInit {
   public filter = {
     brand: 'vans',
   };
+  public sortName;
   public productLength;
   constructor(public productService: ProductService) {}
   public product: any;

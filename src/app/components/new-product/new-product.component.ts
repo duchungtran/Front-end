@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
@@ -18,7 +19,10 @@ export class NewProductComponent implements OnInit {
   };
   public image = [];
   productForm: FormGroup;
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.productForm = new FormGroup({
@@ -33,14 +37,11 @@ export class NewProductComponent implements OnInit {
 
   createProduct() {
     if (
-      !this.productForm.hasError('required', [
-        'name',
-        'price',
-        'brand',
-        'soLuong',
-        'productImage',
-        'moTa',
-      ])
+      !this.productForm.get('name').hasError('required') &&
+      !this.productForm.get('price').hasError('required') &&
+      !this.productForm.get('brand').hasError('required') &&
+      !this.productForm.get('soLuong').hasError('required') &&
+      !this.productForm.get('productImage').hasError('required')
     ) {
       var priceFrom = this.productForm.get('price').value;
       priceFrom = Number(priceFrom).toLocaleString('number');
@@ -55,6 +56,8 @@ export class NewProductComponent implements OnInit {
       };
       console.log(this.newProduct);
       this.productService.createProduct(this.newProduct);
+    } else {
+      this.toastr.warning('Yêu cầu nhập đúng yêu cầu các trường thông tin');
     }
   }
   onSelectFile(event) {

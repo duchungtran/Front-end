@@ -86,18 +86,23 @@ export class CustomerManageComponent implements OnInit {
         diachi: this.customerForm.get('diachi').value,
         sodienthoai: this.customerForm.get('sodienthoai').value,
       };
-      this.customerService
-        .updateCustomer(this.currentCustomer._id, newCustomer)
-        .then((data) => {
-          this.toastr.success('Cập nhập thông tin khách hàng thành công');
-        })
-        .catch((err) => {
-          this.toastr.warning('Cập nhập thông tin khách hàng thất bại');
-        });
+      if (newCustomer.hoten && newCustomer.diachi && newCustomer.sodienthoai) {
+        this.customerService
+          .updateCustomer(this.currentCustomer._id, newCustomer)
+          .then((data) => {
+            this.toastr.success('Cập nhập thông tin khách hàng thành công');
+          })
+          .catch((err) => {
+            this.toastr.warning('Cập nhập thông tin khách hàng thất bại');
+          });
+      } else {
+        this.toastr.warning('Yêu cầu nhập đầy đủ các trường thông tin');
+      }
     }
   }
 
   deleteCustomer() {
+    //console.log(this.currentCustomer._id);
     this.customerService
       .deleteCustomer(this.currentCustomer._id)
       .then((data) => {

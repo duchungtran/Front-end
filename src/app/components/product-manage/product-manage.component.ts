@@ -75,8 +75,6 @@ export class ProductManageComponent implements OnInit {
         'price',
         'brand',
         'soLuong',
-        'productImage',
-        'moTa',
       ])
     ) {
       var priceFrom = this.productForm.get('price').value;
@@ -88,14 +86,25 @@ export class ProductManageComponent implements OnInit {
         soluong: this.productForm.get('soluong').value,
         mota: this.productForm.get('mota').value,
       };
-      this.productService
-        .updateProduct(this.currentProduct._id, newProduct)
-        .then((data) => {
-          this.toastr.success('Cập nhập thông tin sản phẩm thành công');
-        })
-        .catch((err) => {
-          this.toastr.warning('Cập nhập thông tin sản phẩm thất bại');
-        });
+      if (
+        newProduct.name &&
+        newProduct.price &&
+        newProduct.brand &&
+        newProduct.soluong
+      ) {
+        this.productService
+          .updateProduct(this.currentProduct._id, newProduct)
+          .then((data) => {
+            this.toastr.success('Cập nhập thông tin sản phẩm thành công');
+          })
+          .catch((err) => {
+            this.toastr.warning('Cập nhập thông tin sản phẩm thất bại');
+          });
+      } else {
+        this.toastr.warning('Yêu cầu nhập đầy đủ các trường thông tin');
+      }
+    } else {
+      this.toastr.warning('Yêu cầu nhập đầy đủ các trường thông tin');
     }
   }
   deleteProduct() {
