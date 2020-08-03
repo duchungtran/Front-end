@@ -25,6 +25,7 @@ import { OrderManageComponent } from './components/order-manage/order-manage.com
 import { OwlModule } from 'ngx-owl-carousel';
 import { CompleteOrderComponent } from './components/complete-order/complete-order.component';
 import { CustomerManageComponent } from './components/customer-manage/customer-manage.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { CustomerManageComponent } from './components/customer-manage/customer-m
     OrderManageComponent,
     CompleteOrderComponent,
     CustomerManageComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

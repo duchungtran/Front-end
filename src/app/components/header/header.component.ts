@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     if (token) {
       await this.authService.getCurrentUser().then((data) => {
         this.currentUser = data;
-        //console.log(this.currentUser);
+        console.log(this.currentUser);
       });
     }
   }
