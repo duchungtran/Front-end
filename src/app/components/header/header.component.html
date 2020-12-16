@@ -118,7 +118,7 @@
                               </div>
                               <div>
                                 <h4 style="font-size: 13px;
-                                  color: #d0021b; font-weight: 500;">{{item.price}}₫</h4>
+                                  color: #d0021b; font-weight: 500;">{{stringPrice[i]}}₫</h4>
                               </div>
                             </div>
                           </a>
@@ -131,7 +131,7 @@
               </li>
 
               <li>
-                <div class="shopping-card" [attr.soluong]="cartList">
+                <div class="shopping-card" [attr.soluong]="cartListLength">
                   <a href="cart"><i class="fas fa-shopping-cart"></i></a>
                 </div>
               </li>

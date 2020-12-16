@@ -21,6 +21,7 @@ export class OrderManageComponent implements OnInit {
   public idFilter = '';
   public nameFilter = '';
   public sdtFilter = '';
+  public stringPrice = [];
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -64,7 +65,7 @@ export class OrderManageComponent implements OnInit {
   async getProduct() {
     var tempProduct = [];
     var length = 0;
-    for (var i = 0; i < this.currentOrder.product.length; i++) {
+    for (let i = 0; i < this.currentOrder.product.length; i++) {
       await this.productService
         .getProductById(this.currentOrder.product[i])
         .then((data) => {
@@ -74,7 +75,6 @@ export class OrderManageComponent implements OnInit {
       length += 1;
     }
     this.priceCal();
-
     //this.product = tempProduct;
     //console.log(this.product);
   }
@@ -82,20 +82,9 @@ export class OrderManageComponent implements OnInit {
   priceCal() {
     this.subTotal = 0;
     for (var i = 0; i < this.product.length; i++) {
-      this.priceForm[i] = this.product[i].price.split('.').join('');
-      this.priceForm[i] = parseInt(this.priceForm[i], 10);
-      //console.log(this.priceForm[i]);
-      this.priceForm[i] = this.priceForm[i] * this.currentOrder.soluong[i];
-      //console.log(this.priceForm[i]);
-      this.subTotal = this.subTotal + this.priceForm[i];
-      if (!this.total[i]) {
-        this.total.push(Number(this.priceForm[i]).toLocaleString('number'));
-      } else {
-        this.total[i] = Number(this.priceForm[i]).toLocaleString('number');
-      }
+      this.subTotal = this.subTotal + this.product[i].price * this.currentOrder.soluong[i];
       //console.log(this.total);
     }
-    this.subTotal = Number(this.subTotal).toLocaleString('number');
   }
 
   completeOrder() {

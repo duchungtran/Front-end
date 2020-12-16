@@ -1,10 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as jwt_decode from 'jwt-decode';
+import { data } from 'jquery';
 @Component({
   selector: 'app-single-page-product',
   templateUrl: './single-page-product.component.html',
@@ -15,12 +17,14 @@ export class SinglePageProductComponent implements OnInit {
   public currentUser;
   public size = 36.5;
   public imageUrl;
+  public stringPrice;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private toastr: ToastrService,
     public authService: AuthService,
-    public jwtHelper: JwtHelperService
+    public jwtHelper: JwtHelperService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -46,24 +50,34 @@ export class SinglePageProductComponent implements OnInit {
           this.product.productImage[2].length - 7
         ),
     ];
-    console.log(this.imageUrl);
-    console.log(this.product);
+    this.stringPrice = Number(this.product.price).toLocaleString('number');
+    console.log(this.stringPrice);
   }
 
   addToCart() {
     if (this.currentUser) {
-      var temp1 = [];
-      var customer = this.currentUser.username;
-      if (JSON.parse(localStorage.getItem(this.currentUser.username))) {
-        temp1 = JSON.parse(localStorage.getItem(this.currentUser.username));
-      }
-      var temp = { id: this.product._id, soluong: 1, size: this.size };
-      temp1.push(temp);
-      localStorage.setItem(this.currentUser.username, JSON.stringify(temp1));
-      this.toastr.success('Thêm vào giỏ hàng thành công');
-      console.log(temp1);
+      var productToAdd = {
+        productId: this.product._id,
+        quantity: 1,
+        size: this.size,
+      };
+      this.cartService
+        .postCart(this.currentUser._id, productToAdd)
+        .then((data) => {
+          this.toastr.success('Thêm vào giỏ hàng thành công');
+        })
+        .catch((err) => {
+          this.toastr.warning('Thêm vào giỏ hàng thất bại');
+        });
     } else {
-      this.toastr.warning('Yêu cầu đăng nhập để thêm sản phẩm vào giỏ');
+      let temp1 = [];
+      if (localStorage.getItem('cartList')) {
+        temp1 = JSON.parse(localStorage.getItem('cartList'));
+      }
+      let temp = {_id: this.product._id, quantity: 1, size: this.size};
+      temp1.push(temp);
+      localStorage.setItem('cartList', JSON.stringify(temp1));
+      this.toastr.success('Thêm vào giỏ hàng thành công');
     }
   }
 

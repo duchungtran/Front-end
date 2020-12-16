@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { CartService } from '../../services/cart.service';
 import * as jwt_decode from 'jwt-decode';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -12,19 +13,26 @@ import { ProductService } from '../../services/product.service';
 export class HeaderComponent implements OnInit {
   public currentUser;
   public cartList;
+  public cartListLength = 0;
   public filter = {};
   public nameFilter = '';
   public product;
+  public stringPrice = [];
   constructor(
     public jwtHelper: JwtHelperService,
     public authService: AuthService,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) {}
 
   async ngOnInit(): Promise<void> {
     await this.getCurrentUser();
-    this.getProductInCart();
+    if (!this.currentUser) {
+      this.getProductInCart();
+    } else {
+      this.getProductInCartDB();
+    }
   }
 
   getDecodedAccessToken(token: string): any {
@@ -59,8 +67,16 @@ export class HeaderComponent implements OnInit {
   }
 
   getProductInCart() {
-    this.cartList = JSON.parse(localStorage.getItem(this.currentUser.username));
-    this.cartList = this.cartList.length;
+    this.cartList = JSON.parse(localStorage.getItem('cartList'));
+    this.cartListLength = this.cartList.length;
+  }
+  async getProductInCartDB() {
+    await this.cartService
+      .getCart(this.currentUser._id)
+      .then((data) => (this.cartList = data));
+    if (this.cartList) {
+      this.cartListLength = this.cartList.product.length;
+    }
   }
   async getDMProduct(pageSize: number, pageIndex: number, filter: any) {
     await this.productService.getDMProduct().then((data) => {
@@ -68,15 +84,21 @@ export class HeaderComponent implements OnInit {
     });
     console.log(this.product);
   }
-  filterProduct(event: any) {
+  async filterProduct(event: any) {
     this.nameFilter = event;
     this.filter['name'] = { $regex: this.nameFilter, $options: 'i' };
-    this.productService.getDMProduct(6, 1, this.filter).then((data) => {
+    await this.productService.getDMProduct(6, 1, this.filter).then((data) => {
       this.product = data;
     });
     if (!this.nameFilter) {
       this.product = null;
     }
-    console.log(this.product);
+    if (this.product) {
+      for (var i = 0; i < Object.keys(this.product).length; i++) {
+        this.stringPrice.push(
+          Number(this.product[i].price).toLocaleString('number')
+        );
+      }
+    }
   }
 }

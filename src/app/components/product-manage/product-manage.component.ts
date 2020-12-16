@@ -22,6 +22,7 @@ export class ProductManageComponent implements OnInit {
   public brandList = ['vans', 'converse', 'nike'];
   public nameFilter = '';
   public brandFilter = '';
+  public stringPrice = [];
   productForm: FormGroup;
   ngOnInit(): void {
     this.getDMProduct(this.pageSize, this.pageIndex, this.filter);
@@ -39,7 +40,11 @@ export class ProductManageComponent implements OnInit {
     await this.productService.getDMProduct().then((data) => {
       this.product = data;
     });
-    console.log(this.product);
+    for (var i = 0; i < Object.keys(this.product).length; i++) {
+      this.stringPrice.push(
+        Number(this.product[i].price).toLocaleString('number')
+      );
+    }
   }
 
   async getPageEvent() {
@@ -48,6 +53,11 @@ export class ProductManageComponent implements OnInit {
       .then((data) => {
         this.product = data;
       });
+    for (var i = 0; i < Object.keys(this.product).length; i++) {
+      this.stringPrice.push(
+        Number(this.product[i].price).toLocaleString('number')
+      );
+    }
   }
 
   async getAll() {
@@ -77,11 +87,9 @@ export class ProductManageComponent implements OnInit {
         'soLuong',
       ])
     ) {
-      var priceFrom = this.productForm.get('price').value;
-      priceFrom = Number(priceFrom).toLocaleString('number');
       var newProduct = {
         name: this.productForm.get('name').value,
-        price: priceFrom,
+        price: this.productForm.get('price').value,
         brand: this.productForm.get('brand').value,
         soluong: this.productForm.get('soluong').value,
         mota: this.productForm.get('mota').value,
@@ -123,10 +131,6 @@ export class ProductManageComponent implements OnInit {
     this.productForm.controls['brand'].setValue(this.currentProduct.brand);
     this.productForm.controls['soluong'].setValue(this.currentProduct.soluong);
     this.productForm.controls['mota'].setValue(this.currentProduct.mota);
-    this.numberPrice = this.productForm.get('price').value;
-    this.numberPrice = this.numberPrice.split('.').join('');
-    this.numberPrice = parseInt(this.numberPrice, 10);
-    this.productForm.controls['price'].setValue(this.numberPrice);
     console.log(this.currentProduct);
   }
 

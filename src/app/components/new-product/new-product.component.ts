@@ -43,12 +43,9 @@ export class NewProductComponent implements OnInit {
       !this.productForm.get('soLuong').hasError('required') &&
       !this.productForm.get('productImage').hasError('required')
     ) {
-      var priceFrom = this.productForm.get('price').value;
-      priceFrom = Number(priceFrom).toLocaleString('number');
-      //console.log(priceFrom);
       this.newProduct = {
         name: this.productForm.get('name').value,
-        price: priceFrom,
+        price: this.productForm.get('price').value,
         brand: this.productForm.get('brand').value,
         soluong: this.productForm.get('soLuong').value,
         productImage: this.image,

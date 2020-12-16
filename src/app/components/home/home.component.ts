@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   public pageSize = 0;
   public pageIndex = 1;
   public filter = { brand: 'any' };
+  public stringPrice = [];
   ngOnInit(): void {
     this.getDMProduct(this.pageSize, this.pageIndex, this.filter);
   }
@@ -27,6 +28,9 @@ export class HomeComponent implements OnInit {
     for (var i = 1; i <= 6; i++) {
       this.lastestProduct[i - 1] = this.product[length - i];
       //console.log(this.lastestProduct[i - 1]);
+      this.stringPrice.push(
+        Number(this.product[length - i].price).toLocaleString('number')
+      );
     }
   }
 }

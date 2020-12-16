@@ -15,6 +15,7 @@ export class VansComponent implements OnInit {
   public productLength;
   constructor(public productService: ProductService) {}
   public product: any;
+  public stringPrice = [];
   ngOnInit(): void {
     this.getVansProduct(this.pageSize, this.pageIndex, this.filter);
     this.getAll();
@@ -25,6 +26,11 @@ export class VansComponent implements OnInit {
       .then((data) => {
         this.product = data;
       });
+    for (var i = 0; i < Object.keys(this.product).length; i++) {
+      this.stringPrice.push(
+        Number(this.product[i].price).toLocaleString('number')
+      );
+    }
   }
 
   async getAll() {
@@ -40,5 +46,10 @@ export class VansComponent implements OnInit {
       .then((data) => {
         this.product = data;
       });
+    for (var i = 0; i < Object.keys(this.product).length; i++) {
+      this.stringPrice.push(
+        Number(this.product[i].price).toLocaleString('number')
+      );
+    }
   }
 }

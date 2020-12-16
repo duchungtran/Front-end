@@ -18,6 +18,7 @@ export class OrderService {
       this.http.post(this.orderUrl, order).subscribe(
         (res) => {
           resolve(true);
+          console.log(res.json())
           this.order_id = res.json()._id;
         },
         (err) => reject(err)
@@ -25,7 +26,7 @@ export class OrderService {
     });
   }
   orderDetail(detail: any): Promise<boolean> {
-    //console.log(detail);
+    console.log(detail);
     var orderDetail = {
       order: this.order_id,
       orderDetail: detail,
@@ -35,8 +36,12 @@ export class OrderService {
       this.http.post(this.orderDetailUrl, orderDetail).subscribe(
         (res) => {
           resolve(true);
+          console.log(res);
         },
-        (err) => reject(err)
+        (err) => {
+          reject(err);
+          console.log(err);
+        }
       );
     });
   }

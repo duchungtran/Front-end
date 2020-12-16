@@ -50,9 +50,12 @@
               };; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ item.id }}</td>
-            <td>{{ item.order.customer.hoten }}</td>
-            <td>{{ item.order.customer.diachi }}</td>
-            <td>{{ item.order.customer.sodienthoai }}</td>
+            <td *ngIf="item.order.customer">{{ item.order.customer.hoten }}</td>
+            <td *ngIf="item.order.customer">{{ item.order.customer.diachi }}</td>
+            <td *ngIf="item.order.customer">{{ item.order.customer.sodienthoai }}</td>
+            <td *ngIf="!item.order.customer">{{ item.order.hoten }}</td>
+            <td *ngIf="!item.order.customer">{{ item.order.diachi }}</td>
+            <td *ngIf="!item.order.customer">{{ item.order.sodienthoai }}</td>
             <td>
               <button (click)="currentOrder = item; getProduct()" style="margin-right: 10px;" type="button"
                 class="btn btn-success" data-toggle="modal" data-target="#viewModal">
@@ -110,7 +113,7 @@
                         </div>
                       </td>
                       <td>
-                        <h5>{{ item.price }}₫</h5>
+                        <h5>{{ stringPrice[i] }}₫</h5>
                       </td>
                       <td>
                         <h5>{{ currentOrder.soluong[i] }}</h5>

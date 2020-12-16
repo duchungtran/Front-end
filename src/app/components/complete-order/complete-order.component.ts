@@ -22,6 +22,7 @@ export class CompleteOrderComponent implements OnInit {
   public idFilter = '';
   public nameFilter = '';
   public sdtFilter = '';
+  public stringPrice = [];
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -75,6 +76,11 @@ export class CompleteOrderComponent implements OnInit {
       length += 1;
     }
     this.priceCal();
+    for (var i = 0; i < Object.keys(this.product).length; i++) {
+      this.stringPrice.push(
+        Number(tempProduct[i].price).toLocaleString('number')
+      );
+    }
     //this.product = tempProduct;
     //console.log(this.product);
   }
@@ -82,10 +88,8 @@ export class CompleteOrderComponent implements OnInit {
   priceCal() {
     this.subTotal = 0;
     for (var i = 0; i < this.product.length; i++) {
-      this.priceForm[i] = this.product[i].price.split('.').join('');
-      this.priceForm[i] = parseInt(this.priceForm[i], 10);
       //console.log(this.priceForm[i]);
-      this.priceForm[i] = this.priceForm[i] * this.currentOrder.soluong[i];
+      this.priceForm[i] = this.product[i].price * this.currentOrder.soluong[i];
       //console.log(this.priceForm[i]);
       this.subTotal = this.subTotal + this.priceForm[i];
       if (!this.total[i]) {
